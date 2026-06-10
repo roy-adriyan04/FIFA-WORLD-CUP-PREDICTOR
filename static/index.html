@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIFA World Cup 2026 — Match Predictor</title>
+    <meta name="description" content="Predict FIFA World Cup 2026 match outcomes with AI-powered analysis">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="brutal-box header">
+            <h1>FIFA World Cup 2026</h1>
+            <div class="subtitle">AI Match Predictor</div>
+        </header>
+
+        <!-- Input Section -->
+        <div class="brutal-box input-section">
+            <div class="team-select-row">
+                <div class="team-select-group">
+                    <label for="team1-select">Team 1</label>
+                    <select id="team1-select">
+                        <option value="">Select Team...</option>
+                    </select>
+                    <div class="team-rank" id="team1-rank"></div>
+                </div>
+
+                <div class="vs-badge">VS</div>
+
+                <div class="team-select-group">
+                    <label for="team2-select">Team 2</label>
+                    <select id="team2-select">
+                        <option value="">Select Team...</option>
+                    </select>
+                    <div class="team-rank" id="team2-rank"></div>
+                </div>
+            </div>
+
+            <div class="stage-row">
+                <label for="stage-select">Tournament Stage</label>
+                <select id="stage-select">
+                    <option value="Group stage">Group Stage</option>
+                    <option value="Round of 32">Round of 32</option>
+                    <option value="Round of 16">Round of 16</option>
+                    <option value="Quarter-finals">Quarter-finals</option>
+                    <option value="Semi-finals">Semi-finals</option>
+                    <option value="Final">Final</option>
+                </select>
+            </div>
+
+            <button id="predict-btn" class="brutal-btn" onclick="predict()">
+                Predict Match
+            </button>
+        </div>
+
+        <!-- Loading & Error -->
+        <div class="brutal-box loading" id="loading" style="display:none;">
+            [ Analyzing Match Data... ]
+        </div>
+        <div class="brutal-box error-msg" id="error-msg" style="display:none;"></div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="results" style="display:none;">
+            
+            <!-- Winner Banner -->
+            <div class="brutal-box winner-banner" id="winner-banner">
+                <div class="winner-label">Predicted Winner</div>
+                <div class="winner-name" id="winner-name"></div>
+                <div class="winner-confidence" id="winner-confidence"></div>
+            </div>
+
+            <!-- Score -->
+            <div class="brutal-box score-card">
+                <div class="score-team">
+                    <div class="score-team-name" id="score-team1-name"></div>
+                    <div class="score-number" id="score-team1"></div>
+                </div>
+                <div class="score-separator">-</div>
+                <div class="score-team">
+                    <div class="score-number" id="score-team2"></div>
+                    <div class="score-team-name" id="score-team2-name"></div>
+                </div>
+            </div>
+
+            <!-- Probability Bars -->
+            <div class="brutal-box prob-section">
+                <div class="section-title">Win Probability</div>
+                
+                <div class="prob-bar-wrapper">
+                    <div class="prob-label" id="prob-team1-label"></div>
+                    <div class="prob-bar-container">
+                        <div class="prob-bar prob-bar-team1" id="prob-bar-team1"></div>
+                    </div>
+                    <div class="prob-value" id="prob-team1-val"></div>
+                </div>
+                
+                <div class="prob-bar-wrapper">
+                    <div class="prob-label">Draw</div>
+                    <div class="prob-bar-container">
+                        <div class="prob-bar prob-bar-draw" id="prob-bar-draw"></div>
+                    </div>
+                    <div class="prob-value" id="prob-draw-val"></div>
+                </div>
+                
+                <div class="prob-bar-wrapper">
+                    <div class="prob-label" id="prob-team2-label"></div>
+                    <div class="prob-bar-container">
+                        <div class="prob-bar prob-bar-team2" id="prob-bar-team2"></div>
+                    </div>
+                    <div class="prob-value" id="prob-team2-val"></div>
+                </div>
+            </div>
+
+            <!-- MOTM -->
+            <div class="brutal-box motm-card">
+                <div class="section-title">Man of the Match</div>
+                <div class="motm-name" id="motm-name"></div>
+                <div class="motm-details" id="motm-details"></div>
+                <div class="motm-reason" id="motm-reason"></div>
+                <div class="motm-rating" id="motm-rating"></div>
+            </div>
+
+            <!-- Match Stats -->
+            <div class="brutal-box stats-section">
+                <div class="section-title">Match Statistics</div>
+                <div class="stats-grid-container">
+                    <div class="stats-header">
+                        <span id="stats-team1-name"></span>
+                        <span>STAT</span>
+                        <span id="stats-team2-name"></span>
+                    </div>
+                    <div id="stats-grid"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            Powered by XGBoost • 964 Historical Matches • Neo Brutalism Design
+        </footer>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

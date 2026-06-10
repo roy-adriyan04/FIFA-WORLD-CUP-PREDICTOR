@@ -1,0 +1,509 @@
+/* ============================================================
+   FIFA World Cup 2026 Match Predictor — Neo Brutalism UI
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@600;700;800&display=swap');
+
+:root {
+    --bg: #EAE6DF;
+    --card: #FFFFFF;
+    --text: #111111;
+    --primary: #FF3300; /* Electric Orange/Red */
+    --secondary: #2B00FF; /* Electric Blue */
+    --tertiary: #CCFF00; /* Acid Lime */
+    --border: #000000;
+    --bw: 4px; /* Border Width */
+    --shadow: 8px 8px 0px #000000;
+    --shadow-sm: 4px 4px 0px #000000;
+    --font-heading: 'Syne', sans-serif;
+    --font-body: 'Space Mono', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    /* Dot grid background */
+    background-image: radial-gradient(var(--border) 2px, transparent 2px);
+    background-size: 24px 24px;
+    background-position: -12px -12px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Base Brutalist Elements */
+.brutal-box {
+    background: var(--card);
+    border: var(--bw) solid var(--border);
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+/* Header */
+.header {
+    background: var(--tertiary);
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: "WC26";
+    position: absolute;
+    font-size: 8rem;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    opacity: 0.1;
+    top: -20px;
+    left: -10px;
+    pointer-events: none;
+}
+
+.header h1 {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.subtitle {
+    font-weight: 700;
+    text-transform: uppercase;
+    background: var(--border);
+    color: white;
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Input Section */
+.input-section {
+    background: var(--card);
+}
+
+.team-select-row {
+    display: flex;
+    align-items: stretch;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .team-select-row { flex-direction: column; }
+}
+
+.team-select-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+label::before {
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: var(--primary);
+    border: 2px solid var(--border);
+}
+
+select {
+    width: 100%;
+    padding: 0.8rem;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1rem;
+    border: var(--bw) solid var(--border);
+    background: var(--card);
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat, repeat;
+    background-position: right .7em top 50%, 0 0;
+    background-size: .65em auto, 100%;
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+select:focus {
+    outline: none;
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px var(--border);
+}
+
+.team-rank {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--secondary);
+    min-height: 20px;
+}
+
+.vs-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--card);
+    background: var(--border);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    align-self: center;
+    margin-top: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    transform: rotate(-10deg);
+}
+
+.stage-row {
+    margin-bottom: 2rem;
+    background: #f4f4f4;
+    padding: 1rem;
+    border: 3px solid var(--border);
+}
+
+.brutal-btn {
+    width: 100%;
+    padding: 1.2rem;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    background: var(--primary);
+    color: var(--card);
+    border: var(--bw) solid var(--border);
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: all 0.1s;
+}
+
+.brutal-btn:hover {
+    background: var(--secondary);
+    color: var(--card);
+}
+
+.brutal-btn:active {
+    transform: translate(8px, 8px);
+    box-shadow: 0px 0px 0px var(--border);
+}
+
+/* Loading */
+.loading {
+    text-align: center;
+    background: var(--warning);
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+
+/* Error */
+.error-msg {
+    background: var(--primary);
+    color: white;
+    font-weight: 700;
+}
+
+/* Results Section */
+.results-section {
+    animation: slideUp 0.3s ease-out forwards;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Winner Banner */
+.winner-banner {
+    background: var(--success);
+    text-align: center;
+    padding: 2rem;
+}
+
+.winner-label {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 1rem;
+    border-bottom: 2px solid var(--border);
+    display: inline-block;
+    padding-bottom: 0.2rem;
+    margin-bottom: 1rem;
+}
+
+.winner-name {
+    font-family: var(--font-heading);
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    /* Text stroke effect */
+    -webkit-text-stroke: 2px var(--border);
+    color: var(--card);
+    text-shadow: 4px 4px 0px var(--border);
+}
+
+.winner-confidence {
+    font-weight: 700;
+    font-size: 1.2rem;
+    background: var(--border);
+    color: var(--card);
+    display: inline-block;
+    padding: 0.2rem 0.8rem;
+}
+
+/* Score Card */
+.score-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--secondary);
+    color: var(--card);
+}
+
+.score-team {
+    text-align: center;
+    flex: 1;
+}
+
+.score-team-name {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.score-number {
+    font-family: var(--font-heading);
+    font-size: 5rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.score-separator {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 800;
+    padding: 0 1rem;
+    opacity: 0.5;
+}
+
+/* Probability Bars */
+.prob-section {
+    background: var(--card);
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    border-bottom: var(--bw) solid var(--border);
+    padding-bottom: 0.5rem;
+}
+
+.prob-bar-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    border: 3px solid var(--border);
+    padding: 0.5rem;
+    background: #f4f4f4;
+    box-shadow: var(--shadow-sm);
+}
+
+.prob-label {
+    width: 130px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.prob-bar-container {
+    flex: 1;
+    height: 30px;
+    background: var(--card);
+    border: 2px solid var(--border);
+    margin: 0 1rem;
+}
+
+.prob-bar {
+    height: 100%;
+    width: 0%;
+    transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+    border-right: 2px solid var(--border);
+}
+
+.prob-bar-team1 { background: var(--primary); }
+.prob-bar-draw { background: var(--warning); }
+.prob-bar-team2 { background: var(--tertiary); }
+
+.prob-value {
+    width: 60px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-align: right;
+}
+
+/* MOTM Card */
+.motm-card {
+    background: var(--border);
+    color: var(--card);
+    position: relative;
+    overflow: hidden;
+}
+
+.motm-card .section-title {
+    color: var(--tertiary);
+    border-bottom-color: var(--card);
+}
+
+.motm-name {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--warning);
+    margin-bottom: 0.5rem;
+}
+
+.motm-details {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.motm-details span {
+    background: var(--card);
+    color: var(--border);
+    padding: 0.2rem 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.motm-reason {
+    font-size: 1.1rem;
+    border-left: 4px solid var(--primary);
+    padding-left: 1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+}
+
+.motm-rating {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: var(--primary);
+    padding: 0.5rem 1rem;
+    border: 3px solid var(--card);
+}
+
+/* Stats Section */
+.stats-section {
+    background: var(--card);
+}
+
+.stats-grid-container {
+    border: var(--bw) solid var(--border);
+}
+
+.stats-header {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    background: var(--border);
+    color: var(--card);
+    font-family: var(--font-heading);
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 0.8rem;
+    text-align: center;
+}
+
+.stats-header span:first-child { text-align: left; }
+.stats-header span:last-child { text-align: right; }
+
+.stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    padding: 0.8rem;
+    border-bottom: 2px solid var(--border);
+    align-items: center;
+    background: var(--card);
+}
+
+.stat-row:nth-child(even) {
+    background: #f4f4f4;
+}
+
+.stat-row:last-child {
+    border-bottom: none;
+}
+
+.stat-val {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.2rem;
+}
+
+.stat-val:first-child { text-align: left; }
+.stat-val:last-child { text-align: right; }
+
+.stat-name {
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.stat-highlight {
+    color: var(--card);
+    background: var(--border);
+    padding: 0.1rem 0.4rem;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    font-weight: 700;
+    padding: 2rem 0;
+    border-top: var(--bw) solid var(--border);
+    margin-top: 3rem;
+}
