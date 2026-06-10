@@ -4,7 +4,6 @@ Feature Engineering for FIFA World Cup 2026 Match Predictor
 Transforms raw match/team data into ML-ready feature vectors.
 """
 
-import pandas as pd
 import numpy as np
 import json
 import os
@@ -36,6 +35,7 @@ def build_historical_features(matches_df, rankings_2026, team_profiles):
     Build feature matrix from historical WC matches for model training.
     Each row = one historical match with features + outcome label.
     """
+    import pandas as pd
     
     features_list = []
     labels = []
@@ -224,9 +224,8 @@ def build_prediction_features(team1_name, team2_name, stage_name, team_profiles)
     year = 2026
     
     feat = _build_match_features(hp, ap, stage, year)
-    feature_names = _get_feature_names()
     
-    return pd.DataFrame([feat], columns=feature_names)
+    return np.array([feat])
 
 
 # ---------------------------------------------------------------------------

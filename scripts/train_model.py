@@ -4,11 +4,14 @@ Train the FIFA World Cup 2026 Match Predictor
 Trains XGBoost model on historical WC data, evaluates with 75/25 split.
 """
 
+import os
+import sys
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import pandas as pd
 import numpy as np
 import json
-import os
-import sys
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.metrics import (
     accuracy_score, classification_report, confusion_matrix, log_loss
@@ -153,6 +156,7 @@ def main():
     print("Quick Prediction Test")
     print("=" * 60)
     
+    sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     from model import WorldCupPredictor
     wp = WorldCupPredictor(
         model_path,

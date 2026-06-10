@@ -6,11 +6,10 @@ MOTM heuristic, and match stats generator.
 """
 
 import numpy as np
-import pandas as pd
 import json
 import os
 import joblib
-from xgboost import XGBClassifier
+from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.linear_model import PoissonRegressor
 from feature_engineering import (
     build_prediction_features, build_score_features,
@@ -32,24 +31,16 @@ class MatchPredictor:
             self.load(model_path)
     
     def train(self, X, y, feature_names=None):
-        """Train the XGBoost classifier."""
+        """Train the HistGradientBoosting classifier."""
         self.feature_names = feature_names or list(X.columns)
         
-        self.model = XGBClassifier(
-            n_estimators=300,
+        self.model = HistGradientBoostingClassifier(
+            max_iter=300,
             max_depth=6,
             learning_rate=0.08,
-            subsample=0.8,
-            colsample_bytree=0.8,
-            min_child_weight=3,
-            gamma=0.1,
-            reg_alpha=0.1,
-            reg_lambda=1.0,
-            objective="multi:softprob",
-            num_class=3,
-            eval_metric="mlogloss",
+            min_samples_leaf=3,
+            l2_regularization=1.0,
             random_state=42,
-            n_jobs=-1,
         )
         
         self.model.fit(X, y)
@@ -81,11 +72,8 @@ class MatchPredictor:
         self.feature_names = data["feature_names"]
     
     def get_feature_importance(self):
-        """Return feature importance dict."""
-        if self.model is None:
-            return {}
-        importances = self.model.feature_importances_
-        return dict(zip(self.feature_names, importances.tolist()))
+        """Return feature importance dict (Not supported for HistGradientBoosting)."""
+        return {}
 
 
 # ---------------------------------------------------------------------------
